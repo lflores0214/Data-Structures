@@ -163,13 +163,22 @@ class Stack:
     def __init__(self):
         self.size = 0
         # Why is our DLL a good choice to store our elements?
-        # self.storage = ?
+        # * we can see what comes before and after in the queue with a doubly linked list
+        self.storage = DoublyLinkedList()
 
     def push(self, value):
-        pass
+        # in a stack as things get added they get added to the end of the list
+        self.size += 1
+        self.storage.add_to_tail(value)
 
     def pop(self):
-        pass
+        # check to see if there is anything to remove
+        # when removing something from a stack you have to move the item on top of the stack (the most recently added item)
+        if self.size > 0:
+            self.size -= 1
+            return self.storage.remove_from_tail()
+        else:
+            return None
 
     def len(self):
-        pass
+        return self.size

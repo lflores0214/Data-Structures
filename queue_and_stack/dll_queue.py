@@ -168,13 +168,18 @@ class Queue:
         self.storage = DoublyLinkedList()
 
     def enqueue(self, value):
+        # when adding something to a queue you add it to the beginning of the list
         self.size += 1
         self.storage.add_to_tail(value)
 
     def dequeue(self):
+        # when removing something from a queue you remove it from the end of the list
+        # check to see if there is something to dequeue
         if self.size > 0:
+        #if there is decrease the size by 1 and remove from queue
             self.size -= 1
             return self.storage.remove_from_head()
+        # otherwise there is nothing in the queue so there is nothing to return (excpet None)
         else:
             return None
 
