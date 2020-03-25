@@ -36,12 +36,8 @@ class ListNode:
             self.prev.next = self.next
         if self.next:
             self.next.prev = self.prev
-
-
 """Our doubly-linked list class. It holds references to
 the list's head and tail nodes."""
-
-
 class DoublyLinkedList:
     def __init__(self, node=None):
         self.head = node
@@ -123,8 +119,6 @@ class DoublyLinkedList:
                 max_value = current.value
             current = current.next
         return max_value
-
-
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it

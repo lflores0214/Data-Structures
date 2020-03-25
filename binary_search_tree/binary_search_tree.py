@@ -222,7 +222,7 @@ get_max:
         return node.value
 
 find:
-    #* base code
+    #* base case
     if node is None:
         return False 
     if node.value == findvalue:
@@ -232,7 +232,14 @@ find:
             find on left node
         else:
             find on right node
-
+for_each:
+    if node is None:
+        return Null
+    else:
+        if node.right:
+            node.right.foreach(cb)
+        if node.left:
+            node.left.foreach(cb)
 '''
 
 #* Remember every node is a (BinarySearchTree) with left and right values
@@ -270,7 +277,20 @@ class BinarySearchTree:
                     #if there isn't, insert node here
                     self.right = BinarySearchTree(value)
     def contains(self, target):
-        pass
+        # base case
+        #if there is no value return false
+        if self.value == None:
+            return False
+        #if self.value is equal to the target return true
+        if self.value == target:
+            return True
+        else:
+            #if the target is less than self.value and there is a self.left check the left
+            if target < self.value and self.left:
+                return self.left.contains(target)
+            # if the target is larger than self.value and there is a self.right check the right
+            elif target > self.value and self.right:
+                return self.right.contains(target)
 
     # Return the maximum value found in the tree
     def get_max(self):
@@ -286,7 +306,25 @@ class BinarySearchTree:
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
     def for_each(self, cb):
-        pass
+        #base case
+        # if there is no value there is nothing you can do
+        #* ended up not needing the below check 
+        # if self.value == None:
+        #     pass
+        # else:
+        
+        # if there is a value
+        if self.value:
+            # perform the cb fn on that value
+            cb(self.value)
+        # if there is a right value
+        if self.right != None:
+            # recurse to use the cb fn on that value and keep going right until you cant
+            self.right.for_each(cb)
+        # if there is a left value
+        if self.left != None:
+            # recurse to use the cb fn on that value and keep going left until you cant
+            self.left.for_each(cb)
 
     # DAY 2 Project -----------------------
 
