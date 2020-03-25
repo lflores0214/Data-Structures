@@ -133,10 +133,10 @@ class LRUCache:
     order, as well as a storage dict that provides fast access
     to every node stored in the cache.
     #* keeps track of:
-    #* Limit
-    #* current_nodes_len(size)
-    #* DLL(holds key value pairsin correct order)
-    #* storage dict
+                #* Limit
+                #* current_nodes_len(size)
+                #* DLL(holds key value pairsin correct order)
+                #* storage dict
     """
 
     def __init__(self, limit=10):
@@ -197,12 +197,11 @@ class LRUCache:
         # if cache is full remove oldest key:value pair and then add new key:value pair
         elif self.size == self.limit:
             # remove oldest key:value pair from storage and cache
-            print(f"tail {self.dll.head.value}")
             del self.cache[self.dll.head.value[0]]
             self.dll.remove_from_head()
             # reduce size to be able to add new key:value
             self.size -= 1
-        # add new key:value pair and move to head
+        # add new key:value pair and move to tail
         self.dll.add_to_tail((key, value))
         self.cache[key] = self.dll.tail
         self.size += 1
