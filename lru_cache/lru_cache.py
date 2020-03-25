@@ -132,8 +132,8 @@ class LRUCache:
     linked list that holds the key-value entries in the correct
     order, as well as a storage dict that provides fast access
     to every node stored in the cache.
-    #* keeps track of: 
-    #* Limit 
+    #* keeps track of:
+    #* Limit
     #* current_nodes_len(size)
     #* DLL(holds key value pairsin correct order)
     #* storage dict
@@ -145,9 +145,9 @@ class LRUCache:
         # current number of nodes
         self.size = 0
         # DLL that holds order of key:value in correct order
-        self.order = DoublyLinkedList()
+        self.dll = DoublyLinkedList()
         # A dict for storage and easy access
-        self.storage = {}
+        self.cache = {}
 
     """
     Retrieves the value associated with the given key. Also
@@ -163,15 +163,15 @@ class LRUCache:
 
     def get(self, key):
         # If key:value pair does not exist return None
-        if key not in self.storage:
+        if key not in self.cache:
             return None
         # retrieve the value associated with given key
         else:
-            value = self.storage[key]
-            #move that key:value pair to the end of the order
-            self.order.move_to_front(self.storage[key])
-            return value
-
+            node = self.cache[key]
+            # move that key:value pair to the end of the order (most recently used)
+            self.dll.move_to_end(node)
+            print(f"node {node.value}")
+            return node.value[1]
     """
     Adds the given key-value pair to the cache. The newly-
     added pair should be considered the most-recently used
@@ -181,8 +181,28 @@ class LRUCache:
     case that the key already exists in the cache, we simply
     want to overwrite the old value associated with the key with
     the newly-specified value.
-    
+    #* adds given Key:value pair to cache (self.cache)
+    #* if cache is full remove oldest key:value pair and then add new key:value pair
+    #* newly added key:value pair should be moved to the end (most recently used) 
+    #* if key already exists overwrite old value with new value
     """
 
     def set(self, key, value):
-        pass
+          # if key already exists overwrite old value with new value
+        if key in self.cache:
+            node = self.cache[key]
+            node.value = (key, value)
+            # move to the end to make it the most recently used
+            self.dll.move_to_end(node)
+        # if cache is full remove oldest key:value pair and then add new key:value pair
+        elif self.size == self.limit:
+            # remove oldest key:value pair from storage and cache
+            print(f"tail {self.dll.head.value}")
+            del self.cache[self.dll.head.value[0]]
+            self.dll.remove_from_head()
+            # reduce size to be able to add new key:value
+            self.size -= 1
+        # add new key:value pair and move to head
+        self.dll.add_to_tail((key, value))
+        self.cache[key] = self.dll.tail
+        self.size += 1
