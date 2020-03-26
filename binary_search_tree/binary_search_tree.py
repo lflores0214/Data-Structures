@@ -408,8 +408,10 @@ class BinarySearchTree:
             # DO THE THING! (print)
             print(popped.value)
             # add children of root to queue
-            if 
-            
+            if popped.left:
+                q.enqueue(popped.left)
+            if popped.right:
+                q.enqueue(popped.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
