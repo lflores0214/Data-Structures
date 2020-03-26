@@ -129,7 +129,7 @@ class LRUCache:
     #* keeps track of:
                 #* Limit
                 #* current_nodes_len(size)
-                #* DLL(holds key value pairsin correct order)
+                #* DLL(holds key value pairs in correct order)
                 #* storage dict
     """
 
