@@ -366,15 +366,15 @@ class BinarySearchTree:
     # left is always the lowest value
     # traverse all the way and start printing from there
     # How can I print all numbers in sequential order?
-    # use recursion 
+    # use recursion
     # need a base case
     def in_order_print(self, node):
         # base case
         # if there is no value return nothing
-        #* Below check turned out to not be necessary 
+        # * Below check turned out to not be necessary
         # if self.value == None:
         #     return
-        #if there is a left value 
+        # if there is a left value
         if self.left:
             # use recursion to run the fn on the left node till you cant go any more left
             self.left.in_order_print(self.left)
@@ -384,10 +384,9 @@ class BinarySearchTree:
         if self.right:
             self.right.in_order_print(self.right)
 
-
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
-    
+
     # Breadth first traversal- width, broad , layer by layer
     # iterative BFT
     # - create queue
@@ -396,6 +395,7 @@ class BinarySearchTree:
     #     - node = pop head of queue
     #     - DO THE THING!!! (print)
     #     - add children of root to queue
+
     def bft_print(self, node):
         # create queue
         q = Queue()
@@ -403,7 +403,7 @@ class BinarySearchTree:
         q.enqueue(node)
         # while queue is not empty
         while q.size > 0:
-            # node = pop head of queue
+            # node = pop head of queue (node is the argument choose different var name to avoid confusion)
             popped = q.dequeue()
             # DO THE THING! (print)
             print(popped.value)
@@ -415,9 +415,31 @@ class BinarySearchTree:
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
+    # Depth first traversal -  keep going one direction until you no longer can
+    # iterative DFT
+    # - create stack
+    # - add root to stack
+    # - while stack is not empty
+    #     - node = pop top of stack
+    #     - DO THE THING!!! (print)
+    #     - add children of node to stack
     def dft_print(self, node):
-        pass
-
+        # create stack
+        stack = Stack()
+        # add root to stack
+        stack.push(node)
+        # while stack is not empty
+        while stack.size > 0:
+            # node = pop top of stack
+            popped = stack.pop()
+            # DO THE THING! (print)
+            print(popped.value)
+            # add children of node to stack
+            if popped.left:
+                stack.push(popped.left)
+            if popped.right:
+                stack.push(popped.right)
+        return
     # STRETCH Goals -------------------------
     # Note: Research may be required
 
